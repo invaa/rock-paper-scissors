@@ -1,10 +1,10 @@
 package com.games.rps
 
-import scala.util.Random
-import scala.concurrent.duration._
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+
+import scala.concurrent.duration._
+import scala.util.Random
 
 class RPSLoadTest extends Simulation {
 

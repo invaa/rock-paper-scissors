@@ -5,12 +5,10 @@ import com.games.rps.api.exception.GameIsNotActiveException;
 import com.games.rps.api.exception.GameNotExistsException;
 import com.games.rps.api.model.Game;
 import com.games.rps.api.model.Round;
-import com.games.rps.api.model.Status;
 import com.games.rps.api.service.GameService;
 import com.games.rps.api.validator.ValidUuid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
