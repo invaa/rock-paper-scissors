@@ -4,7 +4,7 @@ A rock-paper-scissors game backend written on Java.
 Backend micro-service is configured for Docker containerisation and can be scaled with container management system.
 Backend is using Redis NoSQL as a datastore.
 
-Decision algorithm for making the AI move is based on Markov chains.
+Game engine is using Markov chain to predict player moves depending on previous moves and RSP society data for first round with new players.
 
 Out of scope:
 - Player authentication
@@ -39,7 +39,10 @@ mvn spring-boot:run -Djasypt.encryptor.password=password
 ```
 
 ## Health info
-There is an endpoint to check if service instance is running: http://localhost:8080/actuator/health
+There is an endpoint to check if service instance is running: 
+```
+http://localhost:8080/actuator/health
+```
 
 ## Documentation
 Swagger UI page:
