@@ -63,7 +63,7 @@ public class RoundsRepositoryTest {
         roundsRepository.add(gameId, round);
 
         // then
-        verify(boundListOperationsMock, times(1)).rightPush(roundString);
+        verify(boundListOperationsMock, times(1)).rightPush(anyString());
     }
 
     @Test
