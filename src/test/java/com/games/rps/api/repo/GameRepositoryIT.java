@@ -15,8 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -68,7 +66,6 @@ public class GameRepositoryIT {
         final Game gameSecond = new Game();
         repository.save(gameFirst);
         repository.save(gameSecond);
-        List<Game> games = new ArrayList<>();
         repository.findById(gameSecond.getId());
         assertTrue(repository.findById(gameFirst.getId()).isPresent());
         assertTrue(repository.findById(gameSecond.getId()).isPresent());
