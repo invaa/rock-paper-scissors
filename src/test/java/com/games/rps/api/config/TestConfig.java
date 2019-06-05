@@ -3,6 +3,7 @@ package com.games.rps.api.config;
 import com.games.rps.api.controller.GameController;
 import com.games.rps.api.repo.GameRepository;
 import com.games.rps.api.service.GameService;
+import com.games.rps.api.service.StatsService;
 import org.springframework.context.annotation.*;
 
 import static org.mockito.Mockito.mock;
@@ -15,6 +16,12 @@ public class TestConfig {
     @Bean
     public GameController gameController(GameService gameService) {
         return new GameController(gameService);
+    }
+
+    @Primary
+    @Bean(name = "statsServiceMock")
+    public StatsService statsServiceMock() {
+        return mock(StatsService.class);
     }
 
     @Primary

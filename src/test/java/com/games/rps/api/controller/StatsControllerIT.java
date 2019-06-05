@@ -1,10 +1,10 @@
 package com.games.rps.api.controller;
 
 import com.games.rps.api.config.TestConfig;
-import com.games.rps.api.dto.HumanMoveDto;
-import com.games.rps.api.model.Game;
-import com.games.rps.api.model.Round;
-import com.games.rps.api.service.GameService;
+import com.games.rps.api.dto.StatsByPlayerDto;
+import com.games.rps.api.model.PlayerStats;
+import com.games.rps.api.service.StatsService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,98 +17,62 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Optional;
-
 import static com.games.rps.api.TestUtil.convertToJsonString;
 import static com.games.rps.api.TestUtil.getExceptionResolver;
-import static com.games.rps.api.model.Move.ROCK;
-import static com.games.rps.api.model.Result.DRAW;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
 @WebAppConfiguration
-public class GameControllerIT {
+@Slf4j
+public class StatsControllerIT {
 
     @Autowired
-    @Qualifier("gameServiceMock")
-    private GameService gameServiceMock;
+    @Qualifier("statsServiceMock")
+    private StatsService statsServiceMock;
 
     @Autowired
-    private GameController gameController;
+    private StatsController statsController;
 
     private MockMvc mockMvc;
 
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(gameController)
+        mockMvc = MockMvcBuilders.standaloneSetup(statsController)
                 .setHandlerExceptionResolvers(getExceptionResolver())
                 .build();
     }
 
     @After
     public void resetMocks() {
-        Mockito.reset(gameServiceMock);
+        Mockito.reset(statsServiceMock);
     }
 
     @Test
-    public void shouldStartNewGame() throws Exception {
+    public void shouldGetStats() throws Exception {
         // given
-        String gameId = "644d7115-42f7-4c79-927e-04e717586614";
-        Game game = new Game();
-        ReflectionTestUtils.setField(game, "id", gameId);
-        when(gameServiceMock.startNew()).thenReturn(game);
+        StatsByPlayerDto statsByPlayerDto = new StatsByPlayerDto();
+        PlayerStats playerStats = new PlayerStats("player1");
+        playerStats.setRounds(10L);
+        statsByPlayerDto.getStats().add(playerStats);
+        when(statsServiceMock.get(any())).thenReturn(statsByPlayerDto);
 
         // when
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/games/")
-                .contentType(APPLICATION_JSON)
-                .accept(APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        String content = response.getContentAsString();
-
-        // then
-        verify(gameServiceMock).startNew();
-        assertEquals(content, convertToJsonString(game));
-    }
-
-    @Test
-    public void shouldPlayNewRound() throws Exception {
-        // given
-        String playerId = "player1";
-        HumanMoveDto humanMoveDto = new HumanMoveDto();
-        humanMoveDto.setPlayerId(playerId);
-        humanMoveDto.setMove(ROCK);
-        String gameId = "644d7115-42f7-4c79-927e-04e717586614";
-        Game game = new Game();
-        ReflectionTestUtils.setField(game, "id", gameId);
-        Round round = new Round(playerId, humanMoveDto.getMove(), ROCK, DRAW);
-
-        when(gameServiceMock.findByIdLazy(gameId)).thenReturn(Optional.of(game));
-        when(gameServiceMock.playNewRound(game, humanMoveDto)).thenReturn(round);
-
-        // when
-        MvcResult mvcResult = mockMvc.perform(put("/api/v1/games/{id}", gameId)
-                .content(convertToJsonString(humanMoveDto))
-                .contentType(APPLICATION_JSON)
-                .accept(APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/stats")
+                .param("startFrom", "0")
+                .param("howMany", "100")
+                .param("startsWith", "player1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andReturn();
@@ -117,7 +81,29 @@ public class GameControllerIT {
         String content = response.getContentAsString();
 
         // then
-        verify(gameServiceMock).playNewRound(any(), any());
-        assertEquals(content, convertToJsonString(round));
+        verify(statsServiceMock).get(any());
+        assertEquals(content, convertToJsonString(statsByPlayerDto));
+    }
+
+    @Test
+    public void shouldGetStatsByPlayer() throws Exception {
+        // given
+        String playerId = "player1";
+        PlayerStats playerStats = new PlayerStats(playerId);
+        playerStats.setRounds(10L);
+        when(statsServiceMock.getById(playerId)).thenReturn(playerStats);
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/stats/{playerId}", playerId))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        String content = response.getContentAsString();
+
+        // then
+        verify(statsServiceMock).getById(playerId);
+        assertEquals(content, convertToJsonString(playerStats));
     }
 }
