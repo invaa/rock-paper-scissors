@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "12e01bdc-94bf-46fa-a924-6ce7c44be704",
+		"name": "rps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start new game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7e4ba331-6708-4e29-b50c-28649263b7c6",
+						"exec": [
+							"pm.environment.set(\"GAME_ID\", JSON.stringify(pm.response.json().id).replace(/[\"\"]/g, ''))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Play paper",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerId\": \"{{PLAYER_NAME}}\",\n\t\"move\": \"PAPER\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/{{GAME_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						"{{GAME_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Play scissors",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerId\": \"{{PLAYER_NAME}}\",\n\t\"move\": \"SCISSORS\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/{{GAME_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						"{{GAME_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Play rock",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"playerId\": \"{{PLAYER_NAME}}\",\n\t\"move\": \"ROCK\"\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/{{GAME_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						"{{GAME_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get statistics for player",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/stats/{{PLAYER_NAME}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"stats",
+						"{{PLAYER_NAME}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d3f4252-74e3-4d1a-8b49-a933f6190ed3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/stats?startFrom=0&howMany=100&beginsWith=",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"stats"
+					],
+					"query": [
+						{
+							"key": "startFrom",
+							"value": "0"
+						},
+						{
+							"key": "howMany",
+							"value": "100"
+						},
+						{
+							"key": "beginsWith",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get game stats",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/{{GAME_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						"{{GAME_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Terminate game",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_PATH}}/games/{{GAME_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_PATH}}",
+						"games",
+						"{{GAME_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Instance health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/actuator/health",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API docs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/v2/api-docs",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"v2",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
