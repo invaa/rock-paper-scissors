@@ -66,4 +66,17 @@ public class ResultEvaluatorTest {
         // given when then
         assertTrue(DRAW.equals(resultEvaluator.evaluateMoves(SCISSORS, SCISSORS)));
     }
+
+    @Test
+    public void shouldReturnLoseWhenHumanMoveIsNull() {
+        // given when then
+        assertTrue(LOSE.equals(resultEvaluator.evaluateMoves(null, SCISSORS)));
+    }
+
+    @Test
+    public void shouldReturnLoseWhenBothNull() {
+        // given when then
+        assertTrue(LOSE.equals(resultEvaluator.evaluateMoves(null, null)));
+    }
+
 }

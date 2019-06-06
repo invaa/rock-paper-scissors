@@ -120,4 +120,76 @@ public class GameControllerIT {
         verify(gameServiceMock).playNewRound(any(), any());
         assertEquals(content, convertToJsonString(round));
     }
+
+    @Test
+    public void shouldThrowBadRequestWhenPlayerIdIsNull() throws Exception {
+        // given
+        String playerId = null;
+        HumanMoveDto humanMoveDto = new HumanMoveDto();
+        humanMoveDto.setPlayerId(playerId);
+        humanMoveDto.setMove(ROCK);
+        String gameId = "644d7115-42f7-4c79-927e-04e717586614";
+        Game game = new Game();
+        ReflectionTestUtils.setField(game, "id", gameId);
+        Round round = new Round(playerId, humanMoveDto.getMove(), ROCK, DRAW);
+
+        when(gameServiceMock.findByIdLazy(gameId)).thenReturn(Optional.of(game));
+        when(gameServiceMock.playNewRound(game, humanMoveDto)).thenReturn(round);
+
+        // when then
+        mockMvc.perform(put("/api/v1/games/{id}", gameId)
+                .content(convertToJsonString(humanMoveDto))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldThrowBadRequestWhenPlayerIdIsEmpty() throws Exception {
+        // given
+        String playerId = "";
+        HumanMoveDto humanMoveDto = new HumanMoveDto();
+        humanMoveDto.setPlayerId(playerId);
+        humanMoveDto.setMove(ROCK);
+        String gameId = "644d7115-42f7-4c79-927e-04e717586614";
+        Game game = new Game();
+        ReflectionTestUtils.setField(game, "id", gameId);
+        Round round = new Round(playerId, humanMoveDto.getMove(), ROCK, DRAW);
+
+        when(gameServiceMock.findByIdLazy(gameId)).thenReturn(Optional.of(game));
+        when(gameServiceMock.playNewRound(game, humanMoveDto)).thenReturn(round);
+
+        // when then
+        mockMvc.perform(put("/api/v1/games/{id}", gameId)
+                .content(convertToJsonString(humanMoveDto))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldThrowBadRequestWhenMoveEmpty() throws Exception {
+        // given
+        String playerId = "player1";
+        HumanMoveDto humanMoveDto = new HumanMoveDto();
+        humanMoveDto.setPlayerId(playerId);
+        humanMoveDto.setMove(null);
+        String gameId = "644d7115-42f7-4c79-927e-04e717586614";
+        Game game = new Game();
+        ReflectionTestUtils.setField(game, "id", gameId);
+        Round round = new Round(playerId, humanMoveDto.getMove(), ROCK, DRAW);
+
+        when(gameServiceMock.findByIdLazy(gameId)).thenReturn(Optional.of(game));
+        when(gameServiceMock.playNewRound(game, humanMoveDto)).thenReturn(round);
+
+        // when then
+        mockMvc.perform(put("/api/v1/games/{id}", gameId)
+                .content(convertToJsonString(humanMoveDto))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
 }
