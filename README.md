@@ -16,6 +16,7 @@ Requirements:
 - 1 instance is designed and tested for serving 10000 users in parallel
 
 Tech stack: Java 8, spring-boot, Redis, Docker
+Checkstyles is used for static code analysis.
 
 ## How to run the backend
 
