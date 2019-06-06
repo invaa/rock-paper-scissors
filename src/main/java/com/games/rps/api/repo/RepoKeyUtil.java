@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class RepoConstants {
+public final class RepoKeyUtil {
     public static final String UID = "uid";
     public static final String KEY_PREFIX = "v1";
     public static final String DELIMITER = ":";

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.games.rps.api.repo.RepoConstants.getRoundsListName;
+import static com.games.rps.api.repo.RepoKeyUtil.getRoundsListName;
 
 @Repository
 public class RoundsRepository {

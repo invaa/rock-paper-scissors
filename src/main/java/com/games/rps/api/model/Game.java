@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.util.List;
 
-import static com.games.rps.api.repo.RepoConstants.*;
+import static com.games.rps.api.repo.RepoKeyUtil.*;
 
 @RedisHash(KEY_PREFIX + UID + DELIMITER + "rounds")
 @Data

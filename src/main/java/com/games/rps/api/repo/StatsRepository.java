@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.games.rps.api.repo.RepoConstants.*;
+import static com.games.rps.api.repo.RepoKeyUtil.*;
 
 @Repository
 public class StatsRepository {

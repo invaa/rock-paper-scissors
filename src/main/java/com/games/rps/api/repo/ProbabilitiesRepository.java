@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 import static com.games.rps.api.model.Move.*;
-import static com.games.rps.api.repo.RepoConstants.*;
+import static com.games.rps.api.repo.RepoKeyUtil.*;
 
 @Repository
 public class ProbabilitiesRepository {
