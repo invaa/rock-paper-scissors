@@ -14,15 +14,15 @@ import static com.games.rps.api.repo.RepoKeyUtil.*;
 @RedisHash(KEY_PREFIX + UID + DELIMITER + "rounds")
 @Data
 public class Game {
-	@Id
-	@Setter(value = AccessLevel.PRIVATE)
-	private String id;
-	private Status status;
+    @Id
+    @Setter(value = AccessLevel.PRIVATE)
+    private String id;
+    private Status status;
 
-	@Transient
-	private List<Round> rounds;
+    @Transient
+    private List<Round> rounds;
 
-	public Game() {
-		this.status = Status.STARTED;
-	}
+    public Game() {
+        this.status = Status.STARTED;
+    }
 }

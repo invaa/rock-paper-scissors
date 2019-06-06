@@ -8,16 +8,14 @@ import java.util.Optional;
 
 @Component
 public class ResultEvaluator {
-	public Result evaluateMoves(Move playerOneMove, Move playerTwoMove) {
-		if (!Optional.ofNullable(playerOneMove).isPresent()) {
-			return Result.LOSE;
-		}
-		if (playerOneMove.equals(playerTwoMove)) {
-			return Result.DRAW;
-		}
-		else if (playerTwoMove.losesTo().equals(playerOneMove)){
-			return Result.WIN;
-		}
-		return Result.LOSE;
-	}
+    Result evaluateMoves(Move playerOneMove, Move playerTwoMove) {
+        if (!Optional.ofNullable(playerOneMove).isPresent()) {
+            return Result.LOSE;
+        } else if (playerOneMove.equals(playerTwoMove)) {
+            return Result.DRAW;
+        } else if (playerTwoMove.losesTo().equals(playerOneMove)) {
+            return Result.WIN;
+        }
+        return Result.LOSE;
+    }
 }

@@ -57,7 +57,7 @@ public class ApplicationConfig {
             @Value("${rpc.async.thread.pool.max.size:8}") int maxPoolSize,
             @Value("${rpc.async.queue.capacity:100000}") int queueCapacity,
             @Value("${rpc.async.thread.name.prefix:rpc-game-}") String threadNamePrefix
-            ) {
+    ) {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(minPoolSize);
         executor.setMaxPoolSize(maxPoolSize);

@@ -27,52 +27,52 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @Slf4j
 @Validated
 public class GameController {
-	private final GameService gameService;
+    private final GameService gameService;
 
-	@Autowired
-	public GameController(GameService gameService) {
-		this.gameService = gameService;
-	}
+    @Autowired
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
-	@RequestMapping(method = POST, value = "", produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(CREATED)
-	Game startNewGame() {
-		return gameService.startNew();
-	}
+    @RequestMapping(method = POST, value = "", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(CREATED)
+    Game startNewGame() {
+        return gameService.startNew();
+    }
 
-	@RequestMapping(method = GET, value = "/{gameId}", produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(OK)
-	Game gameInfo(@PathVariable @ValidUuid String gameId) throws GameNotExistsException {
-		if(!gameService.isExists(gameId)) {
-			throw new GameNotExistsException(gameId);
-		}
-		return gameService.findById(gameId).get();
-	}
-
-	@RequestMapping(method = DELETE, value = "/{gameId}", produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = GET, value = "/{gameId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-	Game terminateGame(@PathVariable @ValidUuid String gameId) throws GameNotExistsException, GameIsNotActiveException {
-		Game game = getGameByIdProtected(gameId);
-		if (game.getStatus() != STARTED) {
-			throw new GameIsNotActiveException(gameId);
-		}
-		game.setStatus(TERMINATED);
-		gameService.save(game);
-		return game;
-	}
+    Game gameInfo(@PathVariable @ValidUuid String gameId) throws GameNotExistsException {
+        if (!gameService.isExists(gameId)) {
+            throw new GameNotExistsException(gameId);
+        }
+        return gameService.findById(gameId).get();
+    }
 
-	@RequestMapping(method = PUT, value = "/{gameId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(OK)
-	Round playRound(@PathVariable @ValidUuid String gameId, @RequestBody @Valid HumanMoveDto humanMoveDto)
-			throws GameNotExistsException, GameIsNotActiveException {
-		return gameService.playNewRound(getGameByIdProtected(gameId), humanMoveDto);
-	}
+    @RequestMapping(method = DELETE, value = "/{gameId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    Game terminateGame(@PathVariable @ValidUuid String gameId) throws GameNotExistsException, GameIsNotActiveException {
+        Game game = getGameByIdProtected(gameId);
+        if (game.getStatus() != STARTED) {
+            throw new GameIsNotActiveException(gameId);
+        }
+        game.setStatus(TERMINATED);
+        gameService.save(game);
+        return game;
+    }
 
-	private Game getGameByIdProtected(@ValidUuid @PathVariable String gameId) {
-		Optional<Game> gameSearchResult = gameService.findByIdLazy(gameId);
-		if (!gameSearchResult.isPresent()) {
-			throw new GameNotExistsException(gameId);
-		}
-		return gameSearchResult.get();
-	}
+    @RequestMapping(method = PUT, value = "/{gameId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    Round playRound(@PathVariable @ValidUuid String gameId, @RequestBody @Valid HumanMoveDto humanMoveDto)
+            throws GameNotExistsException, GameIsNotActiveException {
+        return gameService.playNewRound(getGameByIdProtected(gameId), humanMoveDto);
+    }
+
+    private Game getGameByIdProtected(@ValidUuid @PathVariable String gameId) {
+        Optional<Game> gameSearchResult = gameService.findByIdLazy(gameId);
+        if (!gameSearchResult.isPresent()) {
+            throw new GameNotExistsException(gameId);
+        }
+        return gameSearchResult.get();
+    }
 }

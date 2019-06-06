@@ -24,21 +24,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Validated
 public class StatsController {
 
-	private final StatsService statsService;
+    private final StatsService statsService;
 
-	public StatsController(StatsService statsService) {
-		this.statsService = statsService;
-	}
+    public StatsController(StatsService statsService) {
+        this.statsService = statsService;
+    }
 
-	@RequestMapping(method = GET, value = "", produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(OK)
-	StatsByPlayerDto stats(@Valid StatsSearchDto searchDto) {
-		return statsService.get(searchDto);
-	}
+    @RequestMapping(method = GET, value = "", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    StatsByPlayerDto stats(@Valid StatsSearchDto searchDto) {
+        return statsService.get(searchDto);
+    }
 
-	@RequestMapping(method = GET, value = "/{playerId}", produces = APPLICATION_JSON_VALUE)
-	@ResponseStatus(OK)
-	PlayerStats statsByPlayer(@PathVariable @ValidPlayerId String playerId) {
-		return statsService.getById(playerId);
-	}
+    @RequestMapping(method = GET, value = "/{playerId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    PlayerStats statsByPlayer(@PathVariable @ValidPlayerId String playerId) {
+        return statsService.getById(playerId);
+    }
 }

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Round {
-	private String gameId;
-	private Move humanMove;
-	private Move aiMove;
-	private Result result;
+    private String gameId;
+    private Move humanMove;
+    private Move aiMove;
+    private Result result;
 }

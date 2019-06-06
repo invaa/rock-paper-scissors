@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class ErrorDto {
-	private final LocalDateTime timestamp;
-	private final int status;
-	private final String message;
+    private final LocalDateTime timestamp;
+    private final int status;
+    private final String message;
 }

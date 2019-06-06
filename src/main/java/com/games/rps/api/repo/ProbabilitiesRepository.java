@@ -42,11 +42,23 @@ public class ProbabilitiesRepository {
     private Long[] getChain(String playerId, Move move) {
         switch (move) {
             case ROCK:
-                return new Long[]{getProbability(playerId, ROCK, ROCK), getProbability(playerId, ROCK, PAPER), getProbability(playerId, ROCK, SCISSORS)};
+                return new Long[]{
+                        getProbability(playerId, ROCK, ROCK),
+                        getProbability(playerId, ROCK, PAPER),
+                        getProbability(playerId, ROCK, SCISSORS)
+                };
             case PAPER:
-                return new Long[]{getProbability(playerId, PAPER, ROCK), getProbability(playerId, PAPER, PAPER), getProbability(playerId, PAPER, SCISSORS)};
+                return new Long[]{
+                        getProbability(playerId, PAPER, ROCK),
+                        getProbability(playerId, PAPER, PAPER),
+                        getProbability(playerId, PAPER, SCISSORS)
+                };
             case SCISSORS:
-                return new Long[]{getProbability(playerId, SCISSORS, ROCK), getProbability(playerId, SCISSORS, PAPER), getProbability(playerId, SCISSORS, SCISSORS)};
+                return new Long[]{
+                        getProbability(playerId, SCISSORS, ROCK),
+                        getProbability(playerId, SCISSORS, PAPER),
+                        getProbability(playerId, SCISSORS, SCISSORS)
+                };
             default: {
                 throw new ParsingException("Wrong last move " + move);
             }
