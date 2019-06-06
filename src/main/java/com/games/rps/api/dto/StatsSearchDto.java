@@ -1,6 +1,6 @@
 package com.games.rps.api.dto;
 
-import com.games.rps.api.validator.ValidPlayerId;
+import com.games.rps.api.validator.ValidPlayerIdForSearch;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -16,6 +16,6 @@ public class StatsSearchDto {
     @Min(1)
     @Max(1000)
     private Integer howMany;
-    @ValidPlayerId
+    @ValidPlayerIdForSearch
     private String beginsWith;
 }

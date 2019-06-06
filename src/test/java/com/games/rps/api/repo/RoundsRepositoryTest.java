@@ -78,7 +78,6 @@ public class RoundsRepositoryTest {
 
         when(stringRedisTemplateMock.boundListOps(key)).thenReturn(boundListOperationsMock);
         when(boundListOperationsMock.range(0, 10)).thenReturn(rounds);
-        when(applicationConfigMock.getMaxRounds()).thenReturn(10);
 
         // when
         List<Round> returnedRounds = roundsRepository.getAll(gameId);

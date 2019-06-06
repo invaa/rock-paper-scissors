@@ -81,4 +81,19 @@ public class MarkovDecisionEngineTest {
         assertEquals(predictedMove, PAPER);
         verify(probabilitiesRepositoryMock).updateChain(playerId, ROCK);
     }
+
+    @Test
+    public void shouldReturnPredictedMoveWhenHumanMoveIsNull() {
+        // given
+        String playerId = "player1";
+        when(probabilitiesRepositoryMock.hasNoGamesPlayed(playerId)).thenReturn(false);
+        when(probabilitiesRepositoryMock.getChain(playerId)).thenReturn(new Long[]{100L,0L,0L});
+
+        // when
+        Move predictedMove = markovDecisionEngine.act(playerId, null);
+
+        // then
+        assertEquals(predictedMove, PAPER);
+        verify(probabilitiesRepositoryMock).updateChain(playerId, null);
+    }
 }

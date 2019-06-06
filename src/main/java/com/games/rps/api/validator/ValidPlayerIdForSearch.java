@@ -2,7 +2,6 @@ package com.games.rps.api.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.lang.annotation.*;
 
@@ -10,10 +9,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = {})
-@Size(min = 3)
 @Size(max = 20)
-@NotNull
-public @interface ValidPlayerId {
+public @interface ValidPlayerIdForSearch {
     String message() default "Player id length must be not longer than 20 characters";
 
     Class<?>[] groups() default {};
