@@ -12,8 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-import static com.games.rps.api.model.Move.*;
-import static com.games.rps.api.repo.RepoKeyUtil.*;
+import static com.games.rps.api.model.Move.PAPER;
+import static com.games.rps.api.model.Move.ROCK;
+import static com.games.rps.api.model.Move.SCISSORS;
+import static com.games.rps.api.repo.RepoKeyUtil.getChainKey;
+import static com.games.rps.api.repo.RepoKeyUtil.getChainMapName;
+import static com.games.rps.api.repo.RepoKeyUtil.getMovesListName;
 
 @Repository
 public class ProbabilitiesRepository {

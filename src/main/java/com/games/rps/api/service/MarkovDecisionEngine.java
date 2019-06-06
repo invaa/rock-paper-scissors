@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-import static com.games.rps.api.model.Move.*;
+import static com.games.rps.api.model.Move.PAPER;
+import static com.games.rps.api.model.Move.ROCK;
+import static com.games.rps.api.model.Move.SCISSORS;
 
 @Slf4j
 @Service

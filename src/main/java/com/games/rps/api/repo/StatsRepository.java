@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.games.rps.api.repo.RepoKeyUtil.*;
+import static com.games.rps.api.repo.RepoKeyUtil.getPlayersDefaultDictName;
+import static com.games.rps.api.repo.RepoKeyUtil.getPlayersDictName;
+import static com.games.rps.api.repo.RepoKeyUtil.getStatsMapName;
+import static com.games.rps.api.repo.RepoKeyUtil.getStatsRoundsMapName;
 
 @Repository
 public class StatsRepository {
