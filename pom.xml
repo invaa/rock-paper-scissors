@@ -30,7 +30,7 @@
         <scala-maven-plugin.version>3.4.4</scala-maven-plugin.version>
         <docker.image.prefix>invaa</docker.image.prefix>
         <swagger2.version>2.9.2</swagger2.version>
-        <guava.version>26.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <commons-lang3.version>3.7</commons-lang3.version>
     </properties>
 
